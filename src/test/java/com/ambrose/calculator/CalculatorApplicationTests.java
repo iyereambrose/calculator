@@ -1,5 +1,6 @@
 package com.ambrose.calculator;
 
+
 import com.ambrose.calculator.service.CalculatorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ class CalculatorApplicationTests {
 	private CalculatorService calculatorService = new CalculatorService();
 	@Test
 	public void testSum() {
-		int result = calculatorService.sum(2,3);
+		int result = calculatorService.sum(2, 3);
 		assertEquals(5, result);
 	}
+
 
 }
