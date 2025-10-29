@@ -16,10 +16,22 @@ pipeline {
                   bat "mvn test"
               }
           }
-          stage("code coverage"){
-                        steps {
-                            bat "mvn clean verify"
-                        }
-                    }
+          stage("Code coverage") {
+              steps {
+                  // Run tests and generate JaCoCo report
+                  sh "mvn clean test jacoco:report"
+
+                  // Publish HTML report
+                  publishHTML (target: [
+                      reportDir: 'target/site/jacoco',
+                      reportFiles: 'index.html',
+                      reportName: "JaCoCo Report"
+                  ])
+
+                  // Verify coverage thresholds
+                  sh "mvn jacoco:check"
+              }
+          }
+
      }
 }
