@@ -1,1 +1,3 @@
+com\ambrose\calculator\controller\CalculatorController.class
+com\ambrose\calculator\service\CalculatorService.class
 com\ambrose\calculator\CalculatorApplication.class

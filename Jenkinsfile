@@ -16,5 +16,10 @@ pipeline {
                   bat "mvn test"
               }
           }
+          stage("code coverage"){
+                        steps {
+                            bat "mvn clean verify"
+                        }
+                    }
      }
 }
