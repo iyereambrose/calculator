@@ -1,8 +1,5 @@
 pipeline {
      agent any
-     triggers {
-     pollSCM('H/5 * * * *')
-     }
      stages {
           stage("Checkout") {
                steps {
@@ -35,6 +32,8 @@ pipeline {
                   //bat "mvn jacoco:check"
               }
           }
-
      }
+     triggers {
+          pollSCM('H/5 * * * *')
+          }
 }
