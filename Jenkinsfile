@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        cron('H/5 * * * *')   // Run the pipeline every 5 minutes
+        cron('H/5 * * * *') // Run every 5 minutes
     }
 
     stages {
@@ -26,19 +26,26 @@ pipeline {
 
         stage("Code coverage") {
             steps {
-                // Run tests and generate JaCoCo report
                 bat "mvn jacoco:report"
 
-                // Publish HTML report
                 publishHTML(target: [
                     reportDir: 'target/site/jacoco',
                     reportFiles: 'index.html',
                     reportName: "JaCoCo Report"
                 ])
-
-                // Verify coverage thresholds (optional)
-                // bat "mvn jacoco:check"
             }
+        }
+    }
+
+    post {
+        always {
+            mail(
+                to: 'iyereambrose60@gmail.com',
+                subject: "Completed Pipeline: ${currentBuild.fullDisplayName}",
+                body: """Your build is complete.
+Build status: ${currentBuild.currentResult}
+Check details at: ${env.BUILD_URL}"""
+            )
         }
     }
 }
